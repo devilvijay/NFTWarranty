@@ -15,11 +15,11 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
-      chainId: 1337
+      chainId: 80001
     },
-    goerli: {
-      url: "<YOUR_ALCHEMY_URL>",
-      accounts: [ "<YOUR_PRIVATE_KEY>" ]
+    polygon: {
+      url: "https://polygon-mumbai.g.alchemy.com/v2/k2I6sW_GliThju4tJrAh12694OrtLzKW",
+      accounts: [ "895824c33f0df1b99e05fcada6adc9092c8c02a110a04404ec64314befae27bc" ]
     }
   },
   solidity: {
