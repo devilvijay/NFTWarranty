@@ -1,9 +1,11 @@
+import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar.js';
-import Marketplace from './components/Marketplace';
-import Profile from './components/Profile';
-import SellNFT from './components/SellNFT';
-import NFTPage from './components/NFTpage';
+// import Navbar from './components/Navbar.js';
+// import Marketplace from './components/Marketplace';
+// import Profile from './components/Profile';
+// import SellNFT from './components/SellNFT';
+// import NFTPage from './components/NFTpage';
+import Seller from './components/Seller';
 import ReactDOM from "react-dom/client";
 import {
   BrowserRouter,
@@ -11,14 +13,14 @@ import {
   Route,
 } from "react-router-dom";
 
-function App() {
+import Homepage from "./components/Homepage.js";
+import Navbar from './components/Navbar';
+const App =()=> {
   return (
-    <div className="container">
+    <div>
         <Routes>
-          <Route path="/" element={<Marketplace />}/>
-          <Route path="/nftPage" element={<NFTPage />}/>        
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/sellNFT" element={<SellNFT />}/>             
+          <Route path="/" element={<Homepage/>}/>
+          <Route path="/warranty" element={<Seller/>}/>  
         </Routes>
     </div>
   );

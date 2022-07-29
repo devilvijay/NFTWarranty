@@ -10,57 +10,57 @@ export default function SellNFT () {
     const [message, updateMessage] = useState('');
     const location = useLocation();
     
-    async function uploadMetaToIPFS() {
-        const (name ,description,price ) =formParams;
-        if(!name || !description )
-        {
-            return;
-        }
-        const nftJSON {
-            owneraddress,serial_number,warranty_duration,num_transfers_allowed
-        };
+    // async function uploadMetaToIPFS() {
+    //     const (name ,description,price ) =formParams;
+    //     if(!name || !description )
+    //     {
+    //         return;
+    //     }
+    //     const nftJSON {
+    //         owneraddress,serial_number,warranty_duration,num_transfers_allowed
+    //     };
 
-        try {
-            const response = await uploadJSONToIPFS(nftJSON);
-            if(response.success === true)
-            {
-                console.log("Uploaded JSON to IPFS",response);
-                return response.pinataURL;
-            }
-        }
-        catch(error)
-        {
-            console.log(error);
-        }
-    }
+    //     try {
+    //         const response = await uploadJSONToIPFS(nftJSON);
+    //         if(response.success === true)
+    //         {
+    //             console.log("Uploaded JSON to IPFS",response);
+    //             return response.pinataURL;
+    //         }
+    //     }
+    //     catch(error)
+    //     {
+    //         console.log(error);
+    //     }
+    // }
     
-    async function MintNFT(e)
-    {
-            e.preventDefault();
+    // async function MintNFT(e)
+    // {
+    //         e.preventDefault();
 
-            try {
-                const metadataURL = await uploadMetaToIPFS();
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer =provider.getSigner();
+    //         try {
+    //             const metadataURL = await uploadMetaToIPFS();
+    //             const provider = new ethers.providers.Web3Provider(window.ethereum);
+    //             const signer =provider.getSigner();
 
-                updateMessage("Warranty card is being created");
+    //             updateMessage("Warranty card is being created");
 
-                let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
-                //get these values from form input data
-                let transaction = await contract.createToken(metadataURL,owner,serial_number,warranty_duration,link_to_warranty_condition,num_transfers_allowed);
-                await transaction.wait();
+    //             let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
+    //             //get these values from form input data
+    //             let transaction = await contract.createToken(metadataURL,owner,serial_number,warranty_duration,link_to_warranty_condition,num_transfers_allowed);
+    //             await transaction.wait();
 
-                alert("Successfully Created NFT Warranty!!");
-                updateMessage("");
-                updateFormParams()
-                //Redirect to MY NFT PAGE 
-                window.location.replace("/")
-            }
-            catch(error)
-            {
-                alert("Error Occured while Creating NFT")
-            }
-    }
+    //             alert("Successfully Created NFT Warranty!!");
+    //             updateMessage("");
+    //             updateFormParams()
+    //             //Redirect to MY NFT PAGE 
+    //             window.location.replace("/")
+    //         }
+    //         catch(error)
+    //         {
+    //             alert("Error Occured while Creating NFT")
+    //         }
+    // }
 
 
     return (
