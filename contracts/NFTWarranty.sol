@@ -16,6 +16,7 @@ contract NFTWarrenty is ERC721URIStorage {
     }
 
     struct TokenInfo {
+        uint256 tokenId;
         /* Pertinent entities */
         address payable owner; //Buyer
         address payable issuer; //Seller
@@ -106,14 +107,14 @@ contract NFTWarrenty is ERC721URIStorage {
         public
         returns (uint256)
     {
-        require(idToTokenInfo[token_id].owner == address(0),"No NFT found for this token id");
+        require(idToTokenInfo[token_id].owner != address(0),"No NFT found for this token id");
         TokenInfo storage info = idToTokenInfo[token_id];
         require(
             is_not_expired(info.issue_time, info.warranty_duration, token_id) ==
-                true,
+                false,
             "Warrenty Expired No transfer allowed"
         );
-        require(info.owner != old_owner,"Only Owner can Transfer the Warranty");
+        require(info.owner == old_owner,"Only Owner can Transfer the Warranty");
         _transfer(info.owner, new_owner, token_id);
         info.issuer = info.owner;
         info.owner = new_owner;
@@ -134,6 +135,7 @@ contract NFTWarrenty is ERC721URIStorage {
     ) private {
         uint256 issue_time = block.timestamp;
         idToTokenInfo[currentTokenId] = TokenInfo(
+            currentTokenId,
             payable(owner),
             payable(seller),
             serial_number,
