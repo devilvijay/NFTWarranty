@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router';
 import './MintNFT.css';
 import Navbar from './Navbar';
 import { FallbackProvider } from '@ethersproject/providers';
-let map = [];
 export default function SellNFT() {
 
     const navigate = useNavigate();
@@ -80,9 +79,6 @@ export default function SellNFT() {
                 alert("Error Occured while Creating NFT")
             }
     }
-
-    // console.log(formParams);
-    map = formParams;
     return (
         <div className="">
             <Navbar></Navbar>
@@ -232,4 +228,3 @@ export default function SellNFT() {
     );
 }
 
-export  { map };
