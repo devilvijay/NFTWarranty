@@ -1,0 +1,146 @@
+
+.Mint-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+     padding:200px;
+     background-color:black;
+     background-size:cover;
+
+    
+}
+
+.form-heading{
+    color: aliceblue;
+    text-decoration: underline;
+    padding: 5px;
+}
+.seller-content{
+    
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+
+    padding: 5px;
+    justify-content: space-between;
+    /* text-align:right; */
+    text-align: end;
+   
+}
+.content-label{
+    display:flex;
+    color:white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-right:20px;
+    font-size:large;
+    
+    margin-left: auto;
+    
+   
+
+}
+.receipt-input{
+    border:none;
+    outline:none;
+    border-radius: 10px;
+    width:250px;
+    height:25px;
+    padding: 5px;
+    background-color: beige;
+}
+
+.serial-label{
+    color:white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-right:20px;
+    font-size:medium;
+}
+.serial-input{
+    border:none;
+    outline:none;
+    border-radius: 10px;
+    width:250px;
+    height:25px;
+    padding: 5px;
+    background-color: beige;
+
+}
+.warranty-label{
+    color:white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-right:20px;
+    font-size:medium;
+}
+.warranty-input{
+    border:none;
+    outline:none;
+    border-radius: 10px;
+    width:250px;
+    height:25px;
+    padding: 5px;
+    background-color: beige;
+
+
+}
+.buttons-mintpage{
+    border-radius:50px;
+    text-align:center;
+    padding:30px;
+    color:black;
+    display:flex;
+    flex-direction: column;
+    pointer-events:cursor;
+}
+.Seller-btn{
+    background-color: rgb(223, 125, 12);
+    border-radius: 50px;
+    padding: 10px 30px;
+    outline: none;
+    border:1px solid black;
+    margin-bottom:10px;
+    color:white;
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.Owner-btn{
+    background-color: grey;
+    border-radius: 50px;
+    padding: 10px 30px;
+    outline: none;
+    border:1px solid black;
+    margin-bottom:10px;
+    color:white;
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    
+
+}
+.Owner-btn:hover{
+    background-color: rgb(94, 93, 93);
+}
+.Seller-btn:hover{
+    background-color: rgb(247, 141, 21)
+}
+.mint-btn{
+    background-color:blue;
+    border-radius: 50px;
+    padding: 10px 30px;
+    outline: none;
+    border:none;
+    margin-bottom:10px;
+    color:white;
+    /* box-shadow: 5px 5px 4px 4px skyblue; */
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.mint-btn:hover{
+    background-color: rgb(102, 53, 201);
+    /* color:blue; */
+    border:1px solid blue;
+    font-size:larger;
+    color:white;
+}

@@ -1,18 +1,18 @@
-import Navbar from "./Navbar";
-import Navbar2 from "./Navbar2";
+// import Navbar from "./Navbar";
 import NFTTile from "./NFTTile";
 import MarketplaceJSON from "../Marketplace.json";
 import axios from "axios";
 import { useState } from "react";
-import Navpage from "./Navpage";
 import SellNFT from "./MintNFT";
 export default function Seller() {
 
 return (
     <div>
         {/* <Navbar></Navbar> */}
+        {/* <Navbar2></Navbar2>  */}
+        
         <SellNFT></SellNFT>
-        {/* <Navbar2></Navbar2> */}
+        
         {/* <Navpage></Navpage> */}
         {/* <div className="flex flex-col place-items-center mt-20">
             <div className="md:text-xl font-bold text-white">

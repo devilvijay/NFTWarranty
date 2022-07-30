@@ -9,8 +9,9 @@ import {
   Route,
 } from "react-router-dom";
 import Homepage from './components/Homepage';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Seller from './components/Seller';
+import User from './components/User';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,7 +20,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />}/>
-        <Route path="/Seller" element={<Seller/>}/>
+        <Route path="/Seller" element={<Seller />} />
+        <Route path="/User" element={<User />} />
+
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
