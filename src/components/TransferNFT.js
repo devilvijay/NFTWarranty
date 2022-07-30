@@ -1,15 +1,54 @@
 import React from 'react'
 import { Navigate, useNavigate } from 'react-router'
 import "./TransferNFT.css"
-
+import Marketplace from '../Marketplace.json';
 const TransferNFT = () => {
 
     const navigate = useNavigate();
-
+    const ethers = require('ethers');
     const handleclick=() =>{
         navigate('/Seller');
     }
-    
+    async function getMyNFTs()
+    {
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer =provider.getSigner();
+        //   const owneraddr = signer.getAddress();
+        //   console.log(owneraddr);
+          const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
+          let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
+          let data = await contract.fetchMyNFTs(owneraddr);
+            const items = await Promise.all(data.map(async i => {
+            // const tokenUri = await contract.tokenURI(i.tokenId)
+            // const meta = await axios.get(tokenUri)
+            // let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+            let item = {
+              seller: i.issuer,
+              owner: i.owner,
+              serial_number: i.serial_number,
+              warranty_duration: parseInt(i.warranty_duration._hex),
+              link_to_warranty: i.link_to_warrenty_condition,
+              num_transfrers_allowed: parseInt(i.num_transfers_allowed._hex)
+            }
+            return item;
+          }));
+        //   console.log(items);
+        //   sessionStorage.setItem('Items',JSON.stringify(items));
+
+        }  
+        catch(err)
+        {
+          console.log(err);
+        }
+    } 
+    getMyNFTs();
+//   const getstorage = () =>{
+//      var string= sessionStorage.getItem('Items');
+//      var arr=JSON.parse(string);
+//      console.log(arr)
+//   }
+//   getstorage();
   return (
     <div className="">
             <div className="Mint-page" id="nftForm">

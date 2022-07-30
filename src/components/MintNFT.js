@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { uploadJSONToIPFS } from '../pinata';
 import Marketplace from '../Marketplace.json';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import './MintNFT.css';
+
 
 export default function SellNFT() {
 
@@ -23,67 +24,68 @@ export default function SellNFT() {
         useState(
             ''
         );
-    const location =
-        useLocation();
+    async function uploadMetaToIPFS(owneraddress) {
+        const {Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer}=formParams;
+        if(!Receipantaddress || !serialnumber || !warrantydays || !numberoftransfer || !warrantyconditions)
+        {
+            return;
+        }
+        const nftJSON = {
+            owneraddress,Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer
+        };
 
-    // async function uploadMetaToIPFS() {
-    //     const (name ,description,price ) =formParams;
-    //     if(!name || !description )
-    //     {
-    //         return;
-    //     }
-    //     const nftJSON {
-    //         owneraddress,serial_number,warranty_duration,num_transfers_allowed
-    //     };
+        try {
+            const response = await uploadJSONToIPFS(nftJSON);
+            if(response.success === true)
+            {
+                console.log("Uploaded JSON to IPFS",response);
+                return response.pinataURL;
+            }
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+    }
 
-    //     try {
-    //         const response = await uploadJSONToIPFS(nftJSON);
-    //         if(response.success === true)
-    //         {
-    //             console.log("Uploaded JSON to IPFS",response);
-    //             return response.pinataURL;
-    //         }
-    //     }
-    //     catch(error)
-    //     {
-    //         console.log(error);
-    //     }
-    // }
+    async function MintNFT(e)
+    {
+            e.preventDefault();
+            try {
+                const metadataURL = await uploadMetaToIPFS();
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer =provider.getSigner();
+                const owneraddr = signer.getAddress();
+                console.log(owneraddr);
+                updateMessage("Warranty card is being created");
 
-    // async function MintNFT(e)
-    // {
-    //         e.preventDefault();
-
-    //         try {
-    //             const metadataURL = await uploadMetaToIPFS();
-    //             const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //             const signer =provider.getSigner();
-
-    //             updateMessage("Warranty card is being created");
-
-    //             let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
-    //             //get these values from form input data
-    //             let transaction = await contract.createToken(metadataURL,owner,serial_number,warranty_duration,link_to_warranty_condition,num_transfers_allowed);
-    //             await transaction.wait();
-
-    //             alert("Successfully Created NFT Warranty!!");
-    //             updateMessage("");
-    //             updateFormParams()
-    //             //Redirect to MY NFT PAGE
-    //             window.location.replace("/")
-    //         }
-    //         catch(error)
-    //         {
-    //             alert("Error Occured while Creating NFT")
-    //         }
-    // }
+                let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
+                //get these values from form input data
+                const {Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer}=formParams;
+                console.log(Receipantaddress);
+                let transaction = await contract.createToken(metadataURL,owneraddr,Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer);
+                await transaction.wait();
+                alert("Trasition is in process!! Please wait.")
+                updateMessage("");
+                alert("Successfully Created NFT Warranty!!");
+                updateMessage("");
+                updateFormParams()
+                //Redirect to MY NFT PAGE
+                window.location.replace("/Seller");
+            }
+            catch(error)
+            {
+                console.log(error);
+                alert("Error Occured while Creating NFT")
+            }
+    }
     return (
         <div className="">
-            {/* <Navbar></Navbar> */}
+            <Navbar></Navbar>
             <div className="Mint-page" id="nftForm">
                 <div className=" buttons-mintpage">
                     <button className="Seller-btn">Seller</button>
-                    <button className="Owner-btn" onClick={handleclick}>Owner</button>
+                    <button className="Owner-btn" onClick={() =>{handleclick()}}>Owner</button>
                     
                 </div>
                 <form className="form">
@@ -219,7 +221,7 @@ export default function SellNFT() {
                             message
                         }
                     </div>
-                    <button onClick={''} className="mint-btn">Mint NFT</button>
+                    <button onClick={MintNFT} className="mint-btn">Mint NFT</button>
                 </form>
             </div>
         </div>

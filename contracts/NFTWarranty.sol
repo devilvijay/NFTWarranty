@@ -141,8 +141,7 @@ contract NFTWarrenty is ERC721URIStorage {
             warranty_duration,
             link_to_warranty_condition,
             num_transfers_allowed
-        );
-
+        );        
         _transfer(seller, owner, currentTokenId);
     }
 
