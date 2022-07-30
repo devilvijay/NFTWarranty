@@ -14,18 +14,7 @@ export default function SellNFT() {
         navigate('/User');
     }
 
-    const [
-        formParams,
-        updateFormParams,
-    ] = useState(
-        {
-            name: '',
-            description:
-                '',
-            price:
-                '',
-        }
-    );
+    const [formParams, updateFormParams] = useState({ Receipantaddress: '', serialnumber: '', warrantydays: '',warrantyconditions: '',numberoftransfer: ''});
     const ethers = require('ethers');
     const [
         message,
@@ -88,7 +77,6 @@ export default function SellNFT() {
     //             alert("Error Occured while Creating NFT")
     //         }
     // }
-
     return (
         <div className="">
             {/* <Navbar></Navbar> */}
@@ -101,84 +89,57 @@ export default function SellNFT() {
                 <form className="form">
                     <h1 className="form-heading">Create your NFT Warranty Card</h1>
                     <div className="seller-content">
-                        <label className="content-label">Receiptant Adress : </label>
-                        <input className="receipt-input" id="name" type="text" placeholder=""
-                            onChange={(e) => updateFormParams({
-                                        ...formParams,
-                                        name: e
-                                            .target
-                                            .value,
-                                    }
-                                )
-                            }
-                            value={
-                                formParams.name
-                            }
-                        >
-                        
+                        <label className="content-label">Receipant Address:</label>
+                        <input className="receipt-input" id="Receipantaddress" type="text" placeholder="Receipant Address" onChange={(e) => updateFormParams({...formParams,Receipantaddress :e.target.value})} value={formParams.Receipantaddress}>
                         </input>
                     </div>
                     <div className="seller-content">
-                        <label
-                            className="content-label"
-                            htmlFor="name"
-                        >
-                            
-                            Serial
-                            Number:
-                        </label>
+                        <label className="content-label">Serial Number:</label>
                         <input
                             className="serial-input"
-                            id="number"
+                            id="serialnumber"
                             type="text"
-                            placeholder="Axie#4563"
+                            placeholder="Serial no"
                             onChange={(
                                 e
                             ) =>
                                 updateFormParams(
                                     {
                                         ...formParams,
-                                        name: e
+                                        serialnumber: e
                                             .target
                                             .value,
                                     }
                                 )
                             }
                             value={
-                                formParams.name
+                                formParams.serialnumber
                             }
                         >
                         
                         </input>
                     </div>
                     <div className="seller-content">
-                        <label
-                            className="content-label"
-                            htmlFor="name"
-                        >
-                            
-                            Warranty
-                            Duration(Days):
-                        </label>
+                        <label className="content-label">Warranty Duration(Days):</label>
                         <input
                             className="warranty-input"
-                            id="days"
+                            id="warrantydays"
                             type="text"
-                            placeholder="Axie#4563"
+                            placeholder="Exipre in Days"
                             onChange={(
                                 e
                             ) =>
                                 updateFormParams(
                                     {
                                         ...formParams,
-                                        name: e
+                                        warrantydays: e
                                             .target
                                             .value,
                                     }
                                 )
                             }
                             value={
-                                formParams.name
+                                formParams.warrantydays
                             }
                         >
                     
@@ -187,30 +148,29 @@ export default function SellNFT() {
                     <div className="seller-content">
                         <label
                             className="content-label"
-                            htmlFor="name"
                         >
                             Warranty
                             Conditions(URL):
                         </label>
                         <input
                             className="warranty-input"
-                            id="text"
+                            id="warrantyconditions"
                             type="text"
-                            placeholder="Axie#4563"
+                            placeholder="URL for conditions"
                             onChange={(
                                 e
                             ) =>
                                 updateFormParams(
                                     {
                                         ...formParams,
-                                        name: e
+                                        warrantyconditions: e
                                             .target
                                             .value,
                                     }
                                 )
                             }
                             value={
-                                formParams.name
+                                formParams.warrantyconditions
                             }
                         >
                         
@@ -219,7 +179,6 @@ export default function SellNFT() {
                     <div className="seller-content">
                         <label
                             className="content-label"
-                            htmlFor="name"
                         >
                         
                             Number
@@ -229,23 +188,23 @@ export default function SellNFT() {
                         </label>
                         <input
                             className="warranty-input"
-                            id="text"
+                            id="numberoftransfer"
                             type="text"
-                            placeholder="Axie#4563"
+                            placeholder="Transfer allowed"
                             onChange={(
                                 e
                             ) =>
                                 updateFormParams(
                                     {
                                         ...formParams,
-                                        name: e
+                                        numberoftransfer: e
                                             .target
                                             .value,
                                     }
                                 )
                             }
                             value={
-                                formParams.name
+                                formParams.numberoftransfer
                             }
                         >
                     
