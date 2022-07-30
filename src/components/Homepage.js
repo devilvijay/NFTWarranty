@@ -10,7 +10,7 @@ import { utils } from 'ethers';
 // import Navbar from './Navbar';
 import { useNavigate } from 'react-router';
 // import {useHistory} from 'react-router-dom';
-
+const addressTrans = '';
 
 
 const Homepage =
@@ -40,7 +40,7 @@ const Homepage =
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = provider.getSigner();
           const addr = await signer.getAddress();
-          console.log(addr)
+          // console.log(addr);
           updateAddress(addr);
         }
         catch (e)
@@ -75,6 +75,7 @@ const Homepage =
             let val = window.ethereum.isConnected();
             console.log(val);
             if (val) {
+              
               //Inside this Only if wallet is connected
               if (currAddress === MarketplaceJSON.address)
               {
@@ -94,6 +95,7 @@ const Homepage =
               navigate("/");
             }
           });
+
       }
       
     return (
@@ -138,3 +140,4 @@ const Homepage =
   };
 
 export default Homepage;
+

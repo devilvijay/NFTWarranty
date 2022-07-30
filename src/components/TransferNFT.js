@@ -3,8 +3,9 @@ import { Navigate, useNavigate } from 'react-router'
 import "./TransferNFT.css"
 import Marketplace from '../Marketplace.json';
 import Navbar from './Navbar';
-const TransferNFT = () => {
 
+
+const TransferNFT = () => {
   const sampleData = [
     {
         "name": "NFT#1",
@@ -32,7 +33,10 @@ const TransferNFT = () => {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = await provider.getSigner();
           const owneraddr = await signer.getAddress();
-          console.log(owneraddr);
+        console.log(owneraddr);
+        
+        // console.log(addressTrans);
+        
           // const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
           let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
           let data = await contract.fetchMyNFTs(owneraddr);
@@ -67,9 +71,22 @@ const TransferNFT = () => {
   {
     getMyNFTs();
   }
+  const getSelectedTOkenid = () => {
+    var token_ids = [];
+    var checkbox = document.querySelectorAll('input[name="nft"]:checked');
+    // console.log(checkbox)
+    checkbox.forEach((el) => {
+      const token_id = el.value;
+      // console.log(token_id);
+      token_ids.push(token_id);
+    })
+    console.log(token_ids);
+    return token_ids;
+  }
+  // console.log(getSelectedTOkenid);
   
   // getMyNFTs();
-  console.log(data);
+  // console.log(data);
   function TableHeader() {
     return (
       <tr>
@@ -86,11 +103,12 @@ const TransferNFT = () => {
   function TableRow(nft)
   {
     let sec = nft.issue_time;
+    let id = nft.token_id;
     let normalDate = new Date(sec*1000).toLocaleString('en-GB', { timeZone: 'UTC' });
     return (
-      <tr key= { nft.tokenId }>
-      <td className='table-definition'><input type='checkbox' value = {nft.tokenId }></input></td>
-      <td className='table-definition'>{nft.owner}</td>
+      <tr key= { id }>
+      <td className='table-definition'><input type='checkbox' name='nft' value = { id } onChange={getSelectedTOkenid}></input></td>
+      <td className='table-definition'>{nft.seller}</td>
       <td className='table-definition'>{nft.serial_number}</td>
       <td className='table-definition'>{normalDate}</td>
       <td className='table-definition'>{nft.warranty_duration}</td>
@@ -121,7 +139,7 @@ const TransferNFT = () => {
                       <input type='text' placeholder='' className='add-input'></input>
                   </div>
                     <br></br>
-                    <button onClick={''} className="mint-btn">Transfer NFT</button>
+                    <button onClick={''} className="transfer-btn">Transfer NFT</button>
                 </div>
             </div>
         </div>
