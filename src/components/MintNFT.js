@@ -5,7 +5,7 @@ import { uploadJSONToIPFS } from '../pinata';
 import Marketplace from '../Marketplace.json';
 import { useNavigate } from 'react-router';
 import './MintNFT.css';
-
+import Navbar from './Navbar';
 
 export default function SellNFT() {
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigate, useNavigate } from 'react-router'
 import "./TransferNFT.css"
 import Marketplace from '../Marketplace.json';
+import Navbar from './Navbar';
 const TransferNFT = () => {
 
     const navigate = useNavigate();
@@ -51,6 +52,7 @@ const TransferNFT = () => {
 //   getstorage();
   return (
     <div className="">
+           <Navbar></Navbar>
             <div className="Mint-page" id="nftForm">
                 <div className=" buttons-mintpage">
                     <button className="Seller-btn" onClick={handleclick}>Seller</button>
