@@ -41,6 +41,7 @@ const Homepage =
           const signer = provider.getSigner();
           const addr = await signer.getAddress();
           // console.log(addr);
+          window.address=addr
           updateAddress(addr);
         }
         catch (e)
