@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo12 from '../logo12.png'
 import './Navbar.css'
+import { useNavigate } from 'react-router'
+import Marketplace from '../Marketplace.json'
+
+import { useSearchParams } from 'react-router-dom'
 const Navbar = () => {
+ 
+    const [addr, updateAddress] = useState('0x');
+    const navigate = useNavigate();
+    const handleclick = () => {
+        
+        navigate('/');
+    }
+
+    
   return (
       <div className='navbar' >
           <div className='navbar-head'>
@@ -11,15 +24,15 @@ const Navbar = () => {
 
           <div className='navbar-address'>
               {/* <div className='contract-address'> */}
-                  <div className='add-head'>Contract Address : 0x83D7bF193FDa9421Cd018995E12Bc5D97f373435</div>
+              <div className='add-head'>Contract Address : { Marketplace.address}</div>
               {/* </div> */}
 
               {/* <div className='user-address'> */}
-                  <div className='user-head'>User Address : 0x83D7bF193FDa9421Cd018995E12Bc5D97f373435</div>
+              <div className='user-head'>User Address : {}</div>
               {/* </div> */}
           </div>
 
-          <button className='disconnect'>Disconnect</button>
+          <button className='disconnect' onClick={handleclick}>Disconnect</button>
     </div>
   )
 }
