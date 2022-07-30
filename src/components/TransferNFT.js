@@ -1,55 +1,103 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router'
 import "./TransferNFT.css"
 import Marketplace from '../Marketplace.json';
 import Navbar from './Navbar';
 const TransferNFT = () => {
 
+  const sampleData = [
+    {
+        "name": "NFT#1",
+        "description": "Alchemy's First NFT",
+        "website":"http://axieinfinity.io",
+        "image":"https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
+        "price":"0.03ETH",
+        "currentlySelling":"True",
+        "address":"0xe81Bf5A757CB4f7F82a2F23b1e59bE45c33c5b13",
+    },
+];
+
     const navigate = useNavigate();
     const ethers = require('ethers');
     const handleclick=() =>{
         navigate('/Seller');
-    }
-    async function getMyNFTs()
-    {
-        try {
+  }
+  const [data, updatedata] = useState(sampleData);
+  const [dataFetched, updateFetched] = useState(false);
+     async function getMyNFTs()
+     {
+       
+      try {
+        // console.log("indside");
           const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const signer =provider.getSigner();
-        //   const owneraddr = signer.getAddress();
-        //   console.log(owneraddr);
-          const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
+          const signer = await provider.getSigner();
+          const owneraddr = await signer.getAddress();
+          console.log(owneraddr);
+          // const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
           let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
           let data = await contract.fetchMyNFTs(owneraddr);
+          // console.log(data);
             const items = await Promise.all(data.map(async i => {
             // const tokenUri = await contract.tokenURI(i.tokenId)
             // const meta = await axios.get(tokenUri)
             // let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-            let item = {
+              let item = {
+              token_id: parseInt(i.tokenId._hex),
               seller: i.issuer,
               owner: i.owner,
               serial_number: i.serial_number,
+              issue_time:  parseInt(i.issue_time._hex),
               warranty_duration: parseInt(i.warranty_duration._hex),
               link_to_warranty: i.link_to_warrenty_condition,
               num_transfrers_allowed: parseInt(i.num_transfers_allowed._hex)
             }
             return item;
           }));
-        //   console.log(items);
+          // console.log(items);
         //   sessionStorage.setItem('Items',JSON.stringify(items));
-
+        updateFetched(true);
+        updatedata(items);
         }  
         catch(err)
         {
-          console.log(err);
+          console.log("error",err);
         }
-    } 
+  } 
+  if (!dataFetched)
+  {
     getMyNFTs();
-//   const getstorage = () =>{
-//      var string= sessionStorage.getItem('Items');
-//      var arr=JSON.parse(string);
-//      console.log(arr)
-//   }
-//   getstorage();
+  }
+  
+  // getMyNFTs();
+  console.log(data);
+  function TableHeader() {
+    return (
+      <tr>
+      <th className='table-heading'>Select</th>
+      <th className='table-heading'>Issuer</th>
+      <th className='table-heading'>Serial Number</th>
+      <th className='table-heading'>Issue Time</th>
+      <th className='table-heading'>Warranty Duration</th>
+      <th className='table-heading'>Transfers Remaining</th>
+     </tr>
+     )
+  };
+
+  function TableRow(nft)
+  {
+    let sec = nft.issue_time;
+    let normalDate = new Date(sec*1000).toLocaleString('en-GB', { timeZone: 'UTC' });
+    return (
+      <tr key= { nft.tokenId }>
+      <td className='table-definition'><input type='checkbox' value = {nft.tokenId }></input></td>
+      <td className='table-definition'>{nft.owner}</td>
+      <td className='table-definition'>{nft.serial_number}</td>
+      <td className='table-definition'>{normalDate}</td>
+      <td className='table-definition'>{nft.warranty_duration}</td>
+      <td className='table-definition'>{nft.num_transfrers_allowed}</td>
+     </tr>
+    )
+  }
   return (
     <div className="">
            <Navbar></Navbar>
@@ -58,26 +106,14 @@ const TransferNFT = () => {
                     <button className="Seller-btn" onClick={handleclick}>Seller</button>
                     <button className="Owner-btn">Owner</button>
                     
-                </div>
+        </div>
               <div className='table-user'>
                   <div className='table-def'>
-                      <table> 
-                          <tr>
-                              <th className='table-heading'>Select</th>
-                              <th className='table-heading'>Issuer</th>
-                              <th className='table-heading'>Serial Number</th>
-                              <th className='table-heading'>Issue Time</th>
-                              <th className='table-heading'>Warranty Duration</th>
-                              <th className='table-heading'>Transfers Remaining</th>
-                          </tr>
-                          <tr>
-                              <td className='table-definition'><input type='checkbox'></input></td>
-                              <td className='table-definition'>Rinku Dhanraj Gabhane{/* issuer address*/ }</td>
-                              <td className='table-definition'>1234526663774{/*serial number*/}</td>
-                              <td className='table-definition'>14/01/2001{/*issue date*/}</td>
-                              <td className='table-definition'>10years{/*warranty duration*/}</td>
-                              <td className='table-definition'>10{/*number of transfers*/}</td>
-                          </tr>
+                  <table> 
+                       <TableHeader/>
+              {data.map((nft) => TableRow(nft))}
+              {/* TableRow(nft.tokenId, nft) */}
+                  
                       </table>
                   </div>
                   <div className='transfer-add'>

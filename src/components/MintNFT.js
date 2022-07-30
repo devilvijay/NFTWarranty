@@ -6,7 +6,7 @@ import Marketplace from '../Marketplace.json';
 import { useNavigate } from 'react-router';
 import './MintNFT.css';
 import Navbar from './Navbar';
-
+import { FallbackProvider } from '@ethersproject/providers';
 export default function SellNFT() {
 
     const navigate = useNavigate();
@@ -227,3 +227,4 @@ export default function SellNFT() {
         </div>
     );
 }
+
