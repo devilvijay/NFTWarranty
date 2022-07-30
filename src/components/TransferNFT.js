@@ -33,12 +33,12 @@ const TransferNFT = () => {
       // console.log("indside");
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = await provider.getSigner();
-      // const owneraddr = await signer.getAddress();
+      const owneraddr = await signer.getAddress();
       // console.log(owneraddr);
 
       // console.log(addressTrans);
 
-      const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
+      // const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
       let contract = new ethers.Contract(Marketplace.address, Marketplace.abi, signer);
       updateAddress(owneraddr);
       let data = await contract.fetchMyNFTs(owneraddr);
@@ -78,8 +78,9 @@ const TransferNFT = () => {
     {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = await provider.getSigner();
+      const oaddress = await signer.getAddress();
       let contract = new ethers.Contract(Marketplace.address, Marketplace.abi, signer);
-      let transaction = await contract.TransferNFT(address, Receipantaddress, token_id[0]);
+      let transaction = await contract.TransferNFT(oaddress, Receipantaddress, token_id[0]);
       await transaction.wait();
       alert("Successfully Transfered NFT Warranty!!");
     }
