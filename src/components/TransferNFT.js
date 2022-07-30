@@ -25,6 +25,7 @@ const TransferNFT = () => {
   }
   const [data, updatedata] = useState(sampleData);
   const [dataFetched, updateFetched] = useState(false);
+  const [address,updateAddress] = useState('0x'); 
      async function getMyNFTs()
      {
        
@@ -39,6 +40,7 @@ const TransferNFT = () => {
         
           // const owneraddr = '0x83D7bF193FDa9421Cd018995E12Bc5D97f373435';
           let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
+          updateAddress(owneraddr);
           let data = await contract.fetchMyNFTs(owneraddr);
           // console.log(data);
             const items = await Promise.all(data.map(async i => {
@@ -71,6 +73,18 @@ const TransferNFT = () => {
   {
     getMyNFTs();
   }
+  
+  async function TransferNFT(Receipantaddress,token_id){
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = await provider.getSigner();
+    let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
+    let transaction = await contract.TransferNFT(address,Receipantaddress,token_id);
+    await transaction.wait();
+    alert("Successfully Transfered NFT Warranty!!");
+
+  }
+  
+  
   const getSelectedTOkenid = () => {
     var token_ids = [];
     var checkbox = document.querySelectorAll('input[name="nft"]:checked');
