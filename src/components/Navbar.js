@@ -28,7 +28,7 @@ const Navbar = () => {
               {/* </div> */}
 
               {/* <div className='user-address'> */}
-              <div className='user-head'>User Address : {}</div>
+              <div className='user-head'>User Address : {window.address}</div>
               {/* </div> */}
           </div>
 
