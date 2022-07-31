@@ -52,20 +52,20 @@ export default function SellNFT() {
     {
             e.preventDefault();
             try {
+                updateMessage("Warranty card is being created!! PLEASE WAIT for 30-40sec!");
                 const metadataURL = await uploadMetaToIPFS();
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer =provider.getSigner();
                 const owneraddr = signer.getAddress();
-                console.log(owneraddr);
-                updateMessage("Warranty card is being created");
+                // console.log(owneraddr);
 
                 let contract = new ethers.Contract(Marketplace.address,Marketplace.abi,signer);
                 //get these values from form input data
                 const {Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer}=formParams;
                 console.log(Receipantaddress);
                 let transaction = await contract.createToken(metadataURL,owneraddr,Receipantaddress,serialnumber,warrantydays,warrantyconditions,numberoftransfer);
-                await transaction.wait();
                 alert("Trasition is in process!! Please wait.")
+                await transaction.wait();
                 updateMessage("");
                 alert("Successfully Created NFT Warranty!!");
                 updateMessage("");
@@ -227,4 +227,3 @@ export default function SellNFT() {
         </div>
     );
 }
-
