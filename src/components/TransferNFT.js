@@ -126,7 +126,7 @@ const TransferNFT = () => {
   function TableRow(nft) {
     let sec = nft.issue_time;
     let id = nft.token_id;
-    let normalDate = new Date(sec * 1000).toLocaleString('en-GB', { timeZone: 'UTC' });
+    let normalDate = new Date(sec * 1000).toLocaleString('en-GB', { timeZone: 'IST' });
     return (
       <tr key={id}>
         <td className='table-definition'><input type='checkbox' name='nft' value={id} onChange={chkbox}></input></td>
