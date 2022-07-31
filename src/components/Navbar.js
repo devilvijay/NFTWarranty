@@ -6,8 +6,7 @@ import Marketplace from '../Marketplace.json'
 
 import { useSearchParams } from 'react-router-dom'
 const Navbar = () => {
- 
-    const [addr, updateAddress] = useState('0x');
+    const updatedaddres = {window.address};
     const navigate = useNavigate();
     const handleclick = () => {
         
@@ -28,7 +27,7 @@ const Navbar = () => {
               {/* </div> */}
 
               {/* <div className='user-address'> */}
-              <div className='user-head'>User Address : {window.address}</div>
+              <div className='user-head'>User Address : {updatedaddres}</div>
               {/* </div> */}
           </div>
 
